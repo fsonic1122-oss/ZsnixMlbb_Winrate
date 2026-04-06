@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zsnix Studio - Premium MLBB WR</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&display=swap');
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif; }
+    
+    body {
+        min-height: 100vh; display: flex; justify-content: center; align-items: center;
+        background: radial-gradient(circle at center, #001a2e 0%, #000000 100%);
+        padding: 20px; color: white;
+    }
+    
+    .container { width: 100%; max-width: 480px; text-align: center; }
+    
+    .header {
+        font-family: 'Orbitron', sans-serif; font-weight: 900; font-style: italic; text-transform: uppercase;
+        background: linear-gradient(180deg, #ffffff 10%, #ffcc00 50%, #d4af37 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.6));
+        font-size: 32px; margin-bottom: 5px;
+    }
+    
+    .subheader { font-size: 14px; color: #00f0ff; margin-bottom: 5px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase; }
+    .main-title { font-family: 'Orbitron'; font-size: 16px; color: #fff; margin-bottom: 25px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); opacity: 0.8; }
+
+    .glow-box {
+        position: relative; overflow: hidden; border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); margin-bottom: 15px; z-index: 0;
+        border: 1px solid rgba(0, 240, 255, 0.2);
+    }
+
+    .glow-box::before {
+        content: ""; position: absolute; width: 200%; height: 200%;
+        background: conic-gradient(from 0deg, transparent, #00f0ff, transparent, #ffcc00, transparent);
+        animation: rotateGlow 6s linear infinite; top: -50%; left: -50%; z-index: -2;
+    }
+
+    @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .inner-content {
+        position: relative; z-index: 1; background: rgba(0, 8, 15, 0.97);
+        border-radius: inherit; width: 100%; height: 100%; padding: 30px 25px;
+    }
+    
+    .input-group { margin-bottom: 22px; text-align: left; position: relative; }
+    
+    label { 
+        color: #ffcc00; font-size: 10px; display: block; margin-left: 15px;
+        margin-bottom: 5px; text-transform: uppercase; font-weight: 900; 
+        letter-spacing: 1.5px; font-family: 'Orbitron';
+    }
+    
+    .input-wrapper {
+        position: relative;
+        clip-path: polygon(5% 0, 100% 0, 100% 70%, 95% 100%, 0 100%, 0 30%);
+        background: linear-gradient(135deg, rgba(0, 240, 255, 0.3), rgba(0, 0, 0, 0.8));
+        padding: 2px;
+    }
+
+    .calc-input {
+        width: 100%; background: #000a14; 
+        clip-path: polygon(5% 0, 100% 0, 100% 70%, 95% 100%, 0 100%, 0 30%);
+        border: none; padding: 15px; color: #00f0ff; font-size: 22px; text-align: center;
+        font-family: 'Orbitron', sans-serif; outline: none;
+    }
+
+    .input-wrapper:focus-within { background: linear-gradient(135deg, #ffcc00, #00f0ff); }
+    
+    .button-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 10px; }
+
+    .calc-btn { 
+        padding: 18px; 
+        background: linear-gradient(135deg, #004e92, #000428);
+        border: 1px solid #00f0ff;
+        clip-path: polygon(0 0, 95% 0, 100% 30%, 100% 100%, 5% 100%, 0 70%);
+        color: #00f0ff; font-weight: 900; 
+        font-family: 'Orbitron'; cursor: pointer; text-transform: uppercase;
+        transition: 0.3s; font-size: 11px; letter-spacing: 1.5px;
+    }
+
+    .calc-btn.highlight {
+        background: linear-gradient(135deg, #ffcc00, #d4af37);
+        border: 1px solid #ffffff;
+        color: #000;
+    }
+
+    /* TELEGRAM BUTTON STYLE */
+    .tg-btn {
+        margin-top: 10px;
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(135deg, #242424 0%, #000000 100%);
+        border: 1px solid #0088cc;
+        color: #0088cc;
+        border-radius: 12px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 14px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-decoration: none;
+        transition: 0.4s;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .tg-btn:hover {
+        background: linear-gradient(135deg, #0088cc, #00c2ff);
+        color: #ffffff;
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(0, 136, 204, 0.6);
+    }
+    
+    .calc-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+    .result-area {
+        margin-top: 20px; padding: 20px; border-radius: 12px;
+        background: rgba(0, 240, 255, 0.03); 
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        display: none; animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .result-title { font-family: 'Orbitron'; color: #ffcc00; font-size: 12px; margin-bottom: 8px; display: block; letter-spacing: 2px; }
+    .result-value { font-family: 'Orbitron'; font-size: 32px; color: #fff; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Zsnix Studio</div>
+    <div class="subheader">Premium Gaming Tool</div>
+    <div class="main-title">Mobile Legends % Win Rate</div>
+    
+    <div class="glow-box">
+        <div class="inner-content">
+            <div class="input-group">
+                <label><i class="fas fa-gamepad"></i> Total Matches</label>
+                <div class="input-wrapper">
+                    <input type="number" id="totalMatches" class="calc-input" placeholder="0">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-chart-line"></i> Current Win Rate (%)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="currentWR" class="calc-input" placeholder="0">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-bullseye"></i> Target Win Rate (%)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="targetWR" class="calc-input" placeholder="0">
+                </div>
+            </div>
+
+            <div class="button-grid">
+                <button class="calc-btn highlight" onclick="calculateWR('winOnly')">Calculate Required Wins</button>
+                <button class="calc-btn" onclick="calculateWR('totalTarget')">Check Final Match Count</button>
+            </div>
+
+            <div id="resultArea" class="result-area">
+                <span id="resTitle" class="result-title">BATTLE ESTIMATION</span>
+                <div id="winsNeeded" class="result-value">0</div>
+                <p id="resDesc" style="color: #00f0ff; font-size: 13px; margin-top: 12px; line-height: 1.6;"></p>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://t.me/Zsnix_Rix" class="tg-btn" target="_blank">
+        <i class="fab fa-telegram-plane"></i> CREATED BY ZSNIX
+    </a>
+</div>
+
+<script>
+    function calculateWR(type) {
+        const total = parseFloat(document.getElementById('totalMatches').value);
+        const current = parseFloat(document.getElementById('currentWR').value) / 100;
+        const target = parseFloat(document.getElementById('targetWR').value) / 100;
+
+        if (!total || isNaN(current) || isNaN(target)) {
+            alert("ကျေးဇူးပြု၍ ဂဏန်းများ မှန်ကန်စွာ ဖြည့်စွက်ပေးပါ။");
+            return;
+        }
+
+        if (target <= current) {
+            alert("Target WR သည် လက်ရှိထက် ပိုများရပါမည်။");
+            return;
+        }
+
+        const currentWins = total * current;
+        const resArea = document.getElementById('resultArea');
+        const resVal = document.getElementById('winsNeeded');
+        const resTitle = document.getElementById('resTitle');
+        const resDesc = document.getElementById('resDesc');
+
+        resArea.style.display = "block";
+
+        if (type === 'totalTarget') {
+            const extraGames = Math.ceil((target * total - currentWins) / (1 - target));
+            const finalTotal = total + extraGames;
+            resTitle.innerText = "TOTAL MATCHES AT TARGET";
+            resVal.innerText = finalTotal + " ပွဲ";
+            resDesc.innerText = `Win Rate ${target * 100}% ရောက်သွားချိန်မှာ စုစုပေါင်းပွဲအရေအတွက် ${finalTotal} ပွဲ ဖြစ်နေပါလိမ့်မယ်။`;
+        } else {
+            const gamesToPlay = Math.ceil((target * total - currentWins) / (1 - target));
+            resVal.innerText = gamesToPlay + " Matches";
+            resTitle.innerText = "REQUIRED WINS (100%)";
+            resDesc.innerText = `သင့်ရဲ့ Target WR ရောက်ဖို့ နောက်ထပ် ${gamesToPlay} ပွဲ ဆက်တိုက် (မရှုံးတမ်း) နိုင်ဖို့ လိုအပ်ပါတယ်။`;
+        }
+    }
+</script>
+
+</body>
+</html>
